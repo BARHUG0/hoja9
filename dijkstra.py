@@ -135,21 +135,39 @@ def get_dijkstra_path(graph, dijkstra_paths_matrix, end_node, return_path_as_nod
         dijkstra_index_path.reverse()
         return(dijkstra_index_path, cost)
 
-def get_edges_between_nodes(nodelist):
+def get_edges_between_nodes(graph, nodelist):
     if(len(nodelist) == 1):
-        return nodelist[0]
+        return None
     
+    graph_edges = list(nx.edges(graph))
     edgelist = []
-    previous_node = nodelist[0]
-    for i in range(1, len(nodelist)):
-        edgelist.append((previous_node, nodelist[i]))
-        previous_node = nodelist[i]
+    for edge in graph_edges:
+        for first_node in nodelist:
+            if first_node in edge:
+                for second_node in nodelist:
+                    if(second_node in edge and second_node != first_node):
+                        edgelist.append(edge)
 
     return edgelist
 
+def get_labels_from_nodes(nodelist):
+    labels = {}
+    for node in nodelist:
+        labels[node] = node
+    return labels
+
+def get_edge_labels_from_edges(graph, edgelist):
+    graph_edge_labels = nx.get_edge_attributes(graph, "weight")
+    edge_labels = {}
+    for edge in edgelist:
+        edge_labels[edge] = graph_edge_labels[edge]
+    
+    print(edge_labels)
+    return edge_labels
+
     
 
-def show_dijkstra_path_graph(graph, nodelist, edgelist):
+def show_dijkstra_path_graph(graph, nodelist, edgelist, labels, edge_labels):
     pos = nx.spring_layout(graph, seed=7)  # positions for all nodes - seed for reproducibility
 
     # nodes
@@ -159,9 +177,8 @@ def show_dijkstra_path_graph(graph, nodelist, edgelist):
     nx.draw_networkx_edges(graph, pos, width=6, node_size=1300, nodelist=nodelist, edgelist=edgelist)
 
     # node labels
-    nx.draw_networkx_labels(graph, pos, font_size=5, font_family="sans-serif")
+    nx.draw_networkx_labels(graph, pos, font_size=5, font_family="sans-serif", labels=labels)
     # edge weight labels
-    edge_labels = nx.get_edge_attributes(graph, "weight")
     nx.draw_networkx_edge_labels(graph, pos, edge_labels, font_size=5)
 
     #ax = plt.gca()
@@ -192,9 +209,34 @@ def select_starting_ending_nodes(nodelist):
         else:
             repeat_question = False
 
+def select_starting_node(nodelist):
+    for i in range(0, len(nodelist)):
+        print(f"{i}. {nodelist[i]}")
 
-    return(nodelist[int(starting_node_index)], nodelist[int(ending_node_index)])
+    
+    starting_node_index = input("Ingrese el número del nodo de partida: ")
+    repeat_question = True
+    while(repeat_question):
+        if(not starting_node_index.isdigit()):
+            print("Únicamente ingresar valores numéricos válidos")
+            starting_node_index = input("Ingrese el número del nodo de partida: ")
+        elif(int(starting_node_index) < 0 or int(starting_node_index) > len(nodelist)): 
+            print("Únicamente ingresar valores dentro del rango")
+            starting_node_index = input("Ingrese el número del nodo de partida: ")
+        else:
+            repeat_question = False
 
+
+    return nodelist[int(starting_node_index)]
+
+def get_reachable_dijkstra_nodes(graph, dijkstra_paths_matrix):
+    all_nodes_list = list(graph.nodes())
+    reachable_nodes = []
+    for i in range(0,len(dijkstra_paths_matrix[0])):
+        if dijkstra_paths_matrix[0][i] != -1:
+            reachable_nodes.append(all_nodes_list[i])
+
+    return reachable_nodes
 
 
         
@@ -240,7 +282,7 @@ def graph_menu(graph):
     menu = True
     print("Grafo cargado exitosamente")
     while(menu):
-        print("1. Mostrar el grafo completo \n2. Calcular el camino entro dos nodos \n3. Mostrar el camino entre dos nodos \n4. Salir")
+        print("1. Mostrar el grafo completo \n2. Calcular el camino entro dos nodos \n3. Mostrar el camino entre dos nodos \n4. Mostrar todos los nodos destino desde un nodo de partida \n5. Salir")
         op = input("Ingrese la opción a ejecutar: ")
         match op:
             case "1":
@@ -250,16 +292,34 @@ def graph_menu(graph):
                 nodes = select_starting_ending_nodes(list(graph.nodes()))
                 dijkstra_paths_matrix = get_dijkstra_paths(graph=graph,starting_node=nodes[0])
                 dijkstra_path = get_dijkstra_path(graph=graph, dijkstra_paths_matrix=dijkstra_paths_matrix, end_node=nodes[1])
-                print(dijkstra_path)
+                if(dijkstra_path == None):
+                    print(f"El nodo {nodes[1]} es inalcanzable desde el nodo {nodes[0]}")
+                else:
+                    print(dijkstra_path)
                 break
             case "3":
                 nodes = select_starting_ending_nodes(list(graph.nodes()))
                 dijkstra_paths_matrix = get_dijkstra_paths(graph=graph,starting_node=nodes[0])
                 dijkstra_path = get_dijkstra_path(graph=graph, dijkstra_paths_matrix=dijkstra_paths_matrix, end_node=nodes[1])
-                edgelist = get_edges_between_nodes(nodelist=dijkstra_path[0])
-                show_dijkstra_path_graph(graph=graph, nodelist=dijkstra_path[0], edgelist=edgelist)
+                if(dijkstra_path == None):
+                    print(f"El nodo {nodes[1]} es inalcanzable desde el nodo {nodes[0]}")
+                else:
+                    edgelist = get_edges_between_nodes(graph=graph,nodelist=dijkstra_path[0])
+                    labels = get_labels_from_nodes(nodelist=dijkstra_path[0])
+                    edge_labels = get_edge_labels_from_edges(graph=graph,edgelist=edgelist)
+                    show_dijkstra_path_graph(graph=graph, nodelist=dijkstra_path[0], edgelist=edgelist, labels=labels,edge_labels=edge_labels)
                 break
             case "4":
+                node = select_starting_node(list(graph.nodes()))
+                dijkstra_paths_matrix = get_dijkstra_paths(graph=graph,starting_node=node)
+                reachable_nodes = get_reachable_dijkstra_nodes(graph=graph,dijkstra_paths_matrix=dijkstra_paths_matrix)
+                if(len(reachable_nodes)>0):
+                    edgelist = get_edges_between_nodes(graph=graph,nodelist=reachable_nodes)
+                    labels = get_labels_from_nodes(nodelist=reachable_nodes)
+                    edge_labels = get_edge_labels_from_edges(graph=graph,edgelist=edgelist)
+                    show_dijkstra_path_graph(graph=graph, nodelist=reachable_nodes, edgelist=edgelist, labels=labels,edge_labels=edge_labels)
+                break
+            case "5":
                 menu = False
                 break
 

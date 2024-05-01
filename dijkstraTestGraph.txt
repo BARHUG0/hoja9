@@ -21,6 +21,25 @@
 “Meppel”, “Groningen”, 200
 “Meppel”, “Leeuwarden”, 300
 
+"Peten", "Alta Verapaz", 500
+"Peten", "Izabal", 500
+"Alta Verapaz", "Quiche", 250
+"Alta Verapaz", "Baja Verapaz", 250
+"Alta Verapaz", "El Progreso", 250
+"Alta Verapaz", "Zacapa", 250
+"Alta Verapaz", "Izabal", 250
+"Izabal", "Zacapa", 500
+"Quiche", "Huehuetenango", 250
+"Quiche", "Totonicapan", 250
+"Quiche", "Solola", 250
+"Quiche", "Chimaltenango", 250
+"Quiche", "Baja Verapaz", 250
 
 
+"CIT 1", "CIT 2", 50
+"CIT 2", "CIT 3", 100
+"CIT 3", "CIT 4", 150
+"CIT 4", "CIT 5", 200
+"CIT 5", "CIT 6", 250
+"CIT 6", "CIT 7", 300
 
