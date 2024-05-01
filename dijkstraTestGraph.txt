@@ -1,0 +1,26 @@
+“Amsterdam”, “Haarlem”, 100
+“Amsterdam”, “Hilver Sum”, 150
+“Hilver Sum”, “Utrecht”, 200
+“Utrecht”, “Den Haag”, 400
+“Haarlem”, “Den Haag”, 250
+“Utrecht”, “Arnhem”, 350
+“Arnhem”, “Nijmegen”, 50
+“Utrecht”, “Shertogenbos”, 450
+“Shertogenbos”, “Tilburg”, 50
+“Shertogenbos”, “Eindhoven”, 150
+“Tilburg”, “Breda”, 100
+“Breda”, “Rozenpaal”, 50
+“Rozenpaal”, “Rotterdam”, 100
+“Rotterdam”, “Den Haag”, 200
+“Eindhoven”, “Venlo”, 100
+“Venlo”, “Roermond”, 50
+“Nijmegen”, “Venlo”, 200
+“Utrecht”, “Zwolle”, 600
+“Utrecht”, “Enschede”, 800
+“Zwolle”, “Meppel”, 100
+“Meppel”, “Groningen”, 200
+“Meppel”, “Leeuwarden”, 300
+
+
+
+
