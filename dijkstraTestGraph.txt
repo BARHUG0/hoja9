@@ -34,12 +34,42 @@
 "Quiche", "Solola", 250
 "Quiche", "Chimaltenango", 250
 "Quiche", "Baja Verapaz", 250
+"Baja Verapaz", "Guatemala", 250
+"Baja Verapaz", "El Progreso", 250
+"El Progreso", "Zacapa", 250
+"El Progreso", "Guatemala", 250
+"El Progreso", "Jalapa", 250
+"Zacapa", "Chiquimula", 250
+"Zacapa", "Jalapa", 250
+"Huehuetenango", "Totonicapan", 250
+"Huehuetenango", "Quetzaltenango", 250
+"Huehuetenango", "San Marcos", 250
+"Totonicapan", "Quetzaltenango", 250
+"Totonicapan", "Solola", 250
+"Solola", "Quetzaltenango", 250
+"Solola", "Suchitepequez", 250
+"Solola", "Chimaltenango", 250
+"Chimaltenango", "Escuintla", 250
+"Chimaltenango", "Sacatequepez", 250
+"Chimaltenango", "Guatemala", 250
+"Chimaltenango", "Suchitepequez", 250
+"Guatemala", "Sacatequepez", 250
+"Guatemala", "Jalapa", 250
+"Guatemala", "Santa Rosa", 250
+"Guatemala", "Escuintla", 250
+"Jalapa", "Chiquimula", 250
+"Jalapa", "Jutiapa", 250
+"Jalapa", "Santa Rosa", 250
+"Chiquimula", "Jutiapa", 250
+"Quetzaltenango", "San Marcos", 250
+"Quetzaltenango", "Retalhuleu", 250
+"Quetzaltenango", "Suchitepequez", 250
+"San Marcos", "Retalhuleu", 250
+"Retalhuleu", "Suchitepequez", 250
+"Suchitepequez", "Escuintla", 250
+"Escuintla", "Sacatequepez", 250
+"Santa Rosa", "Escuintla", 250
+"Santa Rosa", "Jutiapa", 250
 
 
-"CIT 1", "CIT 2", 50
-"CIT 2", "CIT 3", 100
-"CIT 3", "CIT 4", 150
-"CIT 4", "CIT 5", 200
-"CIT 5", "CIT 6", 250
-"CIT 6", "CIT 7", 300
 

@@ -209,6 +209,8 @@ def select_starting_ending_nodes(nodelist):
         else:
             repeat_question = False
 
+    return (nodelist[int(starting_node_index)], nodelist[int(ending_node_index)])
+
 def select_starting_node(nodelist):
     for i in range(0, len(nodelist)):
         print(f"{i}. {nodelist[i]}")
@@ -268,15 +270,12 @@ def main():
             case "1":
                 graph = create_graph_from_file("dijkstraTestGraph.txt")
                 graph_menu(graph=graph)
-                break
             case "2":
                 filename = input("Ingrese el nombre del archivo que contiene un grafo \nEste debe seguir el formato establecido \n")
                 graph = create_graph_from_file(filename=filename)
                 graph_menu(graph=graph)
-                break
             case "3":
                 program = False
-                break
 
 def graph_menu(graph):
     menu = True
@@ -287,7 +286,6 @@ def graph_menu(graph):
         match op:
             case "1":
                 show_graph(graph=graph)
-                break
             case "2": 
                 nodes = select_starting_ending_nodes(list(graph.nodes()))
                 dijkstra_paths_matrix = get_dijkstra_paths(graph=graph,starting_node=nodes[0])
@@ -296,7 +294,6 @@ def graph_menu(graph):
                     print(f"El nodo {nodes[1]} es inalcanzable desde el nodo {nodes[0]}")
                 else:
                     print(dijkstra_path)
-                break
             case "3":
                 nodes = select_starting_ending_nodes(list(graph.nodes()))
                 dijkstra_paths_matrix = get_dijkstra_paths(graph=graph,starting_node=nodes[0])
@@ -308,7 +305,6 @@ def graph_menu(graph):
                     labels = get_labels_from_nodes(nodelist=dijkstra_path[0])
                     edge_labels = get_edge_labels_from_edges(graph=graph,edgelist=edgelist)
                     show_dijkstra_path_graph(graph=graph, nodelist=dijkstra_path[0], edgelist=edgelist, labels=labels,edge_labels=edge_labels)
-                break
             case "4":
                 node = select_starting_node(list(graph.nodes()))
                 dijkstra_paths_matrix = get_dijkstra_paths(graph=graph,starting_node=node)
@@ -318,9 +314,7 @@ def graph_menu(graph):
                     labels = get_labels_from_nodes(nodelist=reachable_nodes)
                     edge_labels = get_edge_labels_from_edges(graph=graph,edgelist=edgelist)
                     show_dijkstra_path_graph(graph=graph, nodelist=reachable_nodes, edgelist=edgelist, labels=labels,edge_labels=edge_labels)
-                break
             case "5":
                 menu = False
-                break
 
 main()
